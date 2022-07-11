@@ -1,0 +1,108 @@
+/* Admin component */
+
+.Admin {
+    /* border: 2px solid red; */
+    padding-bottom: 2.2rem;
+}
+.Admin button{
+    margin-bottom: .8rem;
+    padding: 1rem;
+}
+.Admin__Titles {
+    display: flex;
+    justify-content: center;
+    /* gap: 1rem; */
+    /* border: 2px solid red; */
+}
+
+.Admin__Titles__Title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border: 1px solid red;
+    width: 23rem;
+    height: 7rem;
+    margin: 0;
+}
+.Admin__Titles__Title button{
+    margin: .5rem;
+    padding: 1rem;
+}
+
+.Admin__RenderedItems {
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid red; */
+    
+}
+.renderer{
+    position: absolute;
+    left: 10000000rem;
+}
+
+/* Add item modal window */
+
+.ModalBackground {
+    background-color: hwb(0 0% 100% / 0.5);
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.ModalBackground__Cancel{
+    position: absolute;
+    width: 1rem;
+    height: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    right: 1rem;
+    top: 0rem;
+}
+.ModalBackground__Cancel:hover{
+    cursor: pointer;
+}
+.ModalContainer {
+    height: 45rem;
+    width: 25rem;
+    background-color: white;
+    border-radius: 1.5rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+
+.ModalContainer h2 {
+    font-size: 1.8rem;
+    text-decoration: underline;
+}
+
+.ModalContainer label {
+    font-size: 1.5rem;
+}
+
+.ModalContainer input,
+textarea {
+    font-size: 1.5rem;
+    width: 20rem;
+    margin-bottom: 2.3rem;
+
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.ModalContainer__Submit {
+    font-size: 1.5rem;
+    margin-bottom: .5rem;
+}

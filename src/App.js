@@ -1,9 +1,10 @@
 import './App.css';
+import Admin from './Components/Admin/Admin';
 
-function App() {
+function App(props) {
   return (
     <div className="App">
-      App
+      <Admin />
     </div>
   );
 }
