@@ -2,59 +2,46 @@ import React, { useEffect, useState } from "react";
 import "./Admin.css"
 import "./ModalAdd"
 import ModalAdd from "./ModalAdd";
-import "./ModalEdit"
+import ModalEdit from "./ModalEdit";
 
 function Admin() {
 
-    const [title, setTitle] = useState([])
-    const [price, setPrice] = useState([])
-    const [description, setDescription] = useState([])
-    const [image, setImage] = useState([]);
-    const [visibility, setVisibility] = useState('hidden');
+    const [items, setItems] = useState([]);
+    const [addVisibility, setAddVisibility] = useState('hidden');
+    const [editVisibility, setEditVisibility] = useState('hidden');
     const [count, setCount] = useState(0);
-
-
-    const handleLog = () => {
-        console.log("Title: " + title)
-        console.log("Price: " + price)
-        console.log("Description: " + description)
-        console.log("Image: " + image)
-    }
-    // const handleRender = () => {
-
-    // }
+    const [index, setIndex] = useState(0);
+    const [editedTitle, setEditedTitle] = useState("");
+    const [editedPrice, setEditedPrice] = useState("");
+    const [editedDescription, setEditedDescription] = useState("");
+    const [editedImage, setEditedImage] = useState("");
 
     const handleAdd = () => {
-        setVisibility('visible')
+        setAddVisibility('visible')
     }
 
-    const handleEdit = () => {
-        console.log("edit")
+    const handleEdit = (e) => {
+        setEditVisibility('visible')
+        setIndex(e.target.id);
     }
 
     const handleDelete = (e) => {
-        // console.log(e.target.id)
-        title.splice(e.target.id, 1);
-        setTitle(title);
-        price.splice(e.target.id, 1);
-        setPrice(price);
-        description.splice(e.target.id, 1);
-        setDescription(description);
-        image.splice(e.target.id, 1);
-        setImage(image);
-        setCount(count + 1)
+        console.log(e.target.id)
+        items.splice(e.target.id, 1)
+        setCount(count + 1);
     }
 
     const handlePrintArr = () => {
-        return title.map((item, index) => {
+        return items.map((item, index) => {
             return (
-                <div key={index} className="Admin__RenderedItems">
-                    <p className="Admin__Titles__Title">{title[index]}</p>
-                    <p className="Admin__Titles__Title">{price[index]}</p>
-                    <p className="Admin__Titles__Title">{description[index]}</p>
-                    <p className="Admin__Titles__Title" style={{ backgroundImage: `url(${image[index]})`, backgroundSize: '100%'}}></p>
+                <div key={index} id={index} className="Admin__RenderedItems">
+                    <p className="Admin__Titles__Title">{items[index].title}</p>
+                    <p className="Admin__Titles__Title">{items[index].price}</p>
+                    <p className="Admin__Titles__Title">{items[index].description}</p>
+                    {/* <p className="Admin__Titles__Title" style={{ backgroundImage: `url(${items[index].image})`, backgroundSize: '100%' }}></p> */}
+                    <img className="Admin__Titles__Title" src={items[index].image}></img>
                     <div className="Admin__Titles__Title">
-                        <button id={index} onClick={() => console.log(item, index)}>Edit</button>
+                        <button id={index} onClick={handleEdit}>Edit</button>
                         <button id={index} onClick={handleDelete}>Delete</button>
                     </div>
                 </div>
@@ -65,9 +52,29 @@ function Admin() {
     return (
         <div className="Admin">
             <div className="renderer">{count}</div>
-            <button onClick={() => handleAdd()}>Add</button>
-            <button onClick={() => handleLog()}>Log</button>
-            <ModalAdd title={title} price={price} description={description} image={image} visibility={visibility} setVisibility={setVisibility} />
+            <button onClick={() => handleAdd()} className="Admin__AddButton">Add</button>
+            <ModalAdd
+                items={items}
+                index={index}
+                setIndex={setIndex}
+                visibility={addVisibility}
+                setVisibility={setAddVisibility}
+            />
+            <ModalEdit
+                items={items}
+                editedTitle={editedTitle}
+                setEditedTitle={setEditedTitle}
+                editedPrice={editedPrice}
+                setEditedPrice={setEditedPrice}
+                editedDescription={editedDescription}
+                setEditedDescription={setEditedDescription}
+                editedImage={editedImage}
+                setEditedImage={setEditedImage}
+                visibility={editVisibility}
+                setVisibility={setEditVisibility}
+                handleEdit={handleEdit}
+                index={index}
+            />
             <div className="Admin__Titles">
                 <p className="Admin__Titles__Title">Title</p>
                 <p className="Admin__Titles__Title">Price</p>
