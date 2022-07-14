@@ -9,10 +9,10 @@
 }
 
 .Home__ShoppingCart {
-    width: 16rem;
+    width: 17rem;
     position: absolute;
-    left: 103.3rem;
-    top: 17.7rem;
+    left: 101.75rem;
+    top: 5.45rem;
     border: 2px solid black;
     background-color: white;
     display: flex;
@@ -28,7 +28,8 @@
 }
 
 .Home__ShoppingCart__Button {
-    margin-left: 103rem;
+    margin: 1rem 0 0 101rem;
+    /* margin-left: 103rem; */
 }
 
 .Home__ShoppingCart__Button span {
@@ -49,12 +50,10 @@
 
 .ShoppingCartItems__Item {
     margin: .1rem;
-    border: 2px solid red;
 
 }
 
 .ShoppingCartItems__Item:nth-child(2) {
-    border: 2px solid blue;
     position: absolute;
     left: 9rem;
 }
@@ -63,7 +62,7 @@
     border: 2px solid black;
     background-color: #ddd;
     position: absolute;
-    left: 14.85rem;
+    left: 15.85rem;
     top: -1.15rem;
 }
 
