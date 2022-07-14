@@ -20,7 +20,6 @@ function ModalAdd(props) {
         setPrice("");
         setDescription("");
         setImage("");
-        props.setIndex(props.index + 1)
         props.setVisibility('hidden');
     }
 

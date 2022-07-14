@@ -4,12 +4,11 @@ import "./ModalAdd"
 import ModalAdd from "./ModalAdd";
 import ModalEdit from "./ModalEdit";
 
-function Admin() {
+function Admin(props) {
 
-    const [items, setItems] = useState([]);
     const [addVisibility, setAddVisibility] = useState('hidden');
     const [editVisibility, setEditVisibility] = useState('hidden');
-    const [count, setCount] = useState(0);
+    const [renderer, setRenderer] = useState(0);
     const [index, setIndex] = useState(0);
     const [editedTitle, setEditedTitle] = useState("");
     const [editedPrice, setEditedPrice] = useState("");
@@ -26,20 +25,18 @@ function Admin() {
     }
 
     const handleDelete = (e) => {
-        console.log(e.target.id)
-        items.splice(e.target.id, 1)
-        setCount(count + 1);
+        props.items.splice(e.target.id, 1)
+        setRenderer(renderer + 1);
     }
 
     const handlePrintArr = () => {
-        return items.map((item, index) => {
+        return props.items.map((item, index) => {
             return (
                 <div key={index} id={index} className="Admin__RenderedItems">
-                    <p className="Admin__Titles__Title">{items[index].title}</p>
-                    <p className="Admin__Titles__Title">{items[index].price}</p>
-                    <p className="Admin__Titles__Title">{items[index].description}</p>
-                    {/* <p className="Admin__Titles__Title" style={{ backgroundImage: `url(${items[index].image})`, backgroundSize: '100%' }}></p> */}
-                    <img className="Admin__Titles__Title" src={items[index].image}></img>
+                    <p className="Admin__Titles__Title">{props.items[index].title}</p>
+                    <p className="Admin__Titles__Title">{props.items[index].price}</p>
+                    <p className="Admin__Titles__Title">{props.items[index].description}</p>
+                    <img className="Admin__Titles__Title" src={props.items[index].image}></img>
                     <div className="Admin__Titles__Title">
                         <button id={index} onClick={handleEdit}>Edit</button>
                         <button id={index} onClick={handleDelete}>Delete</button>
@@ -51,17 +48,16 @@ function Admin() {
 
     return (
         <div className="Admin">
-            <div className="renderer">{count}</div>
+            <div className="renderer">{renderer}</div>
             <button onClick={() => handleAdd()} className="Admin__AddButton">Add</button>
+            <button onClick={() => console.log(props.items)}>LOG</button>
             <ModalAdd
-                items={items}
-                index={index}
-                setIndex={setIndex}
+                items={props.items}
                 visibility={addVisibility}
                 setVisibility={setAddVisibility}
             />
             <ModalEdit
-                items={items}
+                items={props.items}
                 editedTitle={editedTitle}
                 setEditedTitle={setEditedTitle}
                 editedPrice={editedPrice}

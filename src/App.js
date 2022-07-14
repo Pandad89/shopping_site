@@ -5,8 +5,7 @@ import Home from './Components/Home/Home';
 
 function App(props) {
   
-  const [items, setItems] = useState([]); 
-
+  let items = [];
 
   return (
     <div className="App">

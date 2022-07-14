@@ -1,6 +1,5 @@
-.Home {
+.Home {}
 
-}
 .Home__List {
     /* border: 2px solid red; */
     display: flex;
@@ -8,15 +7,30 @@
     gap: 2.9rem;
     padding: 1rem;
 }
+
 .Home__ShoppingCart {
+    width: 16rem;
     position: absolute;
-    border: 2px solid red;
+    left: 103.3rem;
+    top: 17.7rem;
+    border: 2px solid black;
+    background-color: white;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0 .2rem 0;
 }
+
+.Home__ShoppingCart button {
+    width: 10rem;
+
+}
+
 .Home__ShoppingCart__Button {
     margin-left: 103rem;
 }
+
 .Home__ShoppingCart__Button span {
     border: 1px solid black;
     background-color: darkgrey;
@@ -26,22 +40,37 @@
     height: 1rem;
     width: 10rem;
 }
-.Home__ShoppingCart__Items{
+
+.Home__ShoppingCart__Items {
     display: flex;
-    /* flex-direction: column; */
-    gap: 1rem;
     justify-content: space-between;
-    /* border: 2px solid red; */
+    width: 16rem;
 }
-.ShoppingCartItems__Item{
+
+.ShoppingCartItems__Item {
     margin: .1rem;
     border: 2px solid red;
 
 }
-.ShoppingCartItems__Item:nth-child(3){
-    border: 2px solid blue;
 
+.ShoppingCartItems__Item:nth-child(2) {
+    border: 2px solid blue;
+    position: absolute;
+    left: 9rem;
 }
+
+.Home__ShoppingCart__AbortButton {
+    border: 2px solid black;
+    background-color: #ddd;
+    position: absolute;
+    left: 14.85rem;
+    top: -1.15rem;
+}
+
+.Home__ShoppingCart__AbortButton:hover {
+    cursor: pointer;
+}
+
 .Home__RenderedItems {
     display: flex;
     padding: 1rem;
