@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Admin.css"
-import "./ModalAdd"
+import myApi from "../../Api/Api";
 import ModalAdd from "./ModalAdd";
 import ModalEdit from "./ModalEdit";
 
@@ -14,6 +14,18 @@ function Admin(props) {
     const [editedPrice, setEditedPrice] = useState("");
     const [editedDescription, setEditedDescription] = useState("");
     const [editedImage, setEditedImage] = useState("");
+
+    useEffect(() => {
+        const handlePrintItems = async () => {
+            try {
+                const res = await myApi.get('/items');
+                props.items = [...res.items];
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        handlePrintItems()
+    })
 
     const handleAdd = () => {
         setAddVisibility('visible')
