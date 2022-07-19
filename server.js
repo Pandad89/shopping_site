@@ -9,7 +9,6 @@ const itemRouter = require('./routes/items');
 const cors = require('cors');
 const app = express();
 const mongoose = require('mongoose');
-const { get } = require('http');
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 const db = mongoose.connection;

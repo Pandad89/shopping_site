@@ -19,7 +19,8 @@ function Admin(props) {
         const handlePrintItems = async () => {
             try {
                 const res = await myApi.get('/items');
-                props.items = [...res.items];
+                console.log(res.data)
+                props.items = [...res.data];
             } catch (err) {
                 console.log(err)
             }
