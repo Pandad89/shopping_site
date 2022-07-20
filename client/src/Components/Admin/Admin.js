@@ -6,6 +6,7 @@ import ModalEdit from "./ModalEdit";
 
 function Admin(props) {
 
+    const [items, setItems] = useState([]);
     const [addVisibility, setAddVisibility] = useState('hidden');
     const [editVisibility, setEditVisibility] = useState('hidden');
     const [renderer, setRenderer] = useState(0);
@@ -19,8 +20,7 @@ function Admin(props) {
         const handlePrintItems = async () => {
             try {
                 const res = await myApi.get('/items');
-                console.log(res.data)
-                props.items = [...res.data];
+                setItems([...res.data]);
             } catch (err) {
                 console.log(err)
             }
@@ -43,13 +43,14 @@ function Admin(props) {
     }
 
     const handlePrintArr = () => {
-        return props.items.map((item, index) => {
+        return items.map((item, index) => {
+            console.log(item)
             return (
                 <div key={index} id={index} className="Admin__RenderedItems">
-                    <p className="Admin__Titles__Title">{props.items[index].title}</p>
-                    <p className="Admin__Titles__Title">{props.items[index].price}</p>
-                    <p className="Admin__Titles__Title">{props.items[index].description}</p>
-                    <img className="Admin__Titles__Title" src={props.items[index].image}></img>
+                    <p className="Admin__Titles__Title">{item.title}</p>
+                    <p className="Admin__Titles__Title">{item.price}</p>
+                    <p className="Admin__Titles__Title">{item.description}</p>
+                    <img className="Admin__Titles__Title" src={item.image}></img>
                     <div className="Admin__Titles__Title">
                         <button id={index} onClick={handleEdit}>Edit</button>
                         <button id={index} onClick={handleDelete}>Delete</button>
@@ -63,14 +64,14 @@ function Admin(props) {
         <div className="Admin">
             <div className="renderer">{renderer}</div>
             <button onClick={() => handleAdd()} className="Admin__AddButton">Add</button>
-            <button onClick={() => console.log(props.items)}>LOG</button>
+            <button onClick={() => console.log(items)}>LOG</button>
             <ModalAdd
-                items={props.items}
+                items={items}
                 visibility={addVisibility}
                 setVisibility={setAddVisibility}
             />
             <ModalEdit
-                items={props.items}
+                items={items}
                 editedTitle={editedTitle}
                 setEditedTitle={setEditedTitle}
                 editedPrice={editedPrice}

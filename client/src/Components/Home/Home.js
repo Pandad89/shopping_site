@@ -4,7 +4,6 @@ import "./Home.css"
 
 function Home(props) {
 
-    const [renderer, setRenderer] = useState(0);
     const [counter, setCounter] = useState(0)
     const [shoppingCartItems, setShoppingCartItems] = useState([]);
     const [shoppingCartTotal, setShoppingCartTotal] = useState(0);
@@ -60,9 +59,9 @@ function Home(props) {
         return props.items.map((item, index) => {
             return (
                 <div className="Home__ShoppingCart__Items">
-                    <p className="ShoppingCartItems__Item">{props.items[index].title}</p>
-                    <p className="ShoppingCartItems__Item">{counter}</p>
-                    <p className="ShoppingCartItems__Item">{props.items[index].price}</p>
+                    <p className="ShoppingCartItems__Item">{}</p>
+                    <p className="ShoppingCartItems__Item">{}</p>
+                    <p className="ShoppingCartItems__Item">{}</p>
                 </div>
             )
         })
