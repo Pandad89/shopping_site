@@ -11,15 +11,17 @@ function Home(props) {
     const [shoppingCartTotal, setShoppingCartTotal] = useState(0);
     const [visibility, setVisibility] = useState("hidden");
 
-    const handlePrintItems = async () => {
-        try {
-            const res = await myApi.get('/items');
-            setItems([res.data]);
-        } catch (err) {
-            console.log(err)
+    useEffect(() => {
+        const handlePrintItems = async () => {
+            try {
+                const res = await myApi.get('/items');
+                setItems([...res.data]);
+            } catch (err) {
+                console.log(err)
+            }
         }
-    }
-    handlePrintItems()
+        handlePrintItems()
+    }, [])
 
     const handleCount = () => {
         // console.log(counter)
@@ -71,9 +73,9 @@ function Home(props) {
         return props.items.map((item, index) => {
             return (
                 <div className="Home__ShoppingCart__Items">
-                    <p className="ShoppingCartItems__Item">{ }</p>
-                    <p className="ShoppingCartItems__Item">{ }</p>
-                    <p className="ShoppingCartItems__Item">{ }</p>
+                    <p className="ShoppingCartItems__Item">{}</p>
+                    <p className="ShoppingCartItems__Item">{}</p>
+                    <p className="ShoppingCartItems__Item">{}</p>
                 </div>
             )
         })

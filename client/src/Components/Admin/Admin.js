@@ -15,6 +15,18 @@ function Admin(props) {
     const [editedDescription, setEditedDescription] = useState("");
     const [editedImage, setEditedImage] = useState("");
 
+    useEffect(() => {
+        const handlePrintItems = async () => {
+            try {
+                const res = await myApi.get('/items');
+                setItems([...res.data]);
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        handlePrintItems()
+    }, [])
+
     const handleAdd = () => {
         setAddVisibility('visible')
     }
@@ -43,16 +55,6 @@ function Admin(props) {
     // }
 
     const handlePrintArr = () => {
-        
-        const handlePrintItems = async () => {
-            try {
-                const res = await myApi.get('/items');
-                setItems([res.data]);
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        handlePrintItems()
         return items.map((item, index) => {
             console.log(item)
             return (
