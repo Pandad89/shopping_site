@@ -9,6 +9,9 @@ let renderer = 0;
 
 function App(props) {
 
+  const handleRender = () => {
+    renderer = renderer + 1;
+}
 
   return (
     <div className="App">
@@ -16,13 +19,13 @@ function App(props) {
       <Router>
       <div>
         <Link to={"/"}>
-          <button>Home</button>
+          <button onClick={handleRender}>Home</button>
         </Link>
         <Link to={"/admin"}>
-          <button>Admin</button>
+          <button onClick={handleRender}>Admin</button>
         </Link>
         <Link to={"/stats"}>
-          <button>Stats</button>
+          <button onClick={handleRender}>Stats</button>
         </Link>
       </div>
         <Routes>

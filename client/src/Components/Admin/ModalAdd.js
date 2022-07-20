@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./Admin.css"
+import myApi from '../../Api/Api';
 
 
 function ModalAdd(props) {
@@ -9,18 +10,38 @@ function ModalAdd(props) {
     const [description, setDescription] = useState("");
     const [image, setImage] = useState("");
 
-    const handleAdd = () => {
-        props.items.push({
-            title: title,
-            price: "$" + price,
-            description: description,
-            image: image,
-        })
-        setTitle("");
-        setPrice("");
-        setDescription("");
-        setImage("");
+    const handleAdd = async (e) => {
+
+        e.preventDefault();
+
+        if (title !== "" && price !== "" && description !== "" && image !== "") {
+            try {
+                const newItem = {
+                    title: title,
+                    price: price,
+                    description: description,
+                    image: image,
+                };
+
+                await myApi.post('/items', newItem)
+
+                setTitle("");
+                setPrice("");
+                setDescription("");
+                setImage("");
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        // props.items.push({
+        //     title: title,
+        //     price: "$" + price,
+        //     description: description,
+        //     image: image,
+        // })
         props.setVisibility('hidden');
+        props.renderer = props.renderer + 1;
     }
 
     const handleChangeTitle = (e) => {
@@ -36,8 +57,9 @@ function ModalAdd(props) {
         setImage(e.target.value)
     }
 
-    return (
+    return (        
         <div className='ModalBackground' style={{ visibility: props.visibility }}>
+            <div className="renderer">{props.renderer}</div>
             <p className='ModalBackground__Cancel' onClick={() => props.setVisibility('hidden')}>X</p>
             <div className='ModalContainer'>
                 <h2>Add Item</h2>

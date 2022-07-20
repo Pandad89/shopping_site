@@ -9,7 +9,6 @@ function Admin(props) {
     const [items, setItems] = useState([]);
     const [addVisibility, setAddVisibility] = useState('hidden');
     const [editVisibility, setEditVisibility] = useState('hidden');
-    const [renderer, setRenderer] = useState(0);
     const [index, setIndex] = useState(0);
     const [editedTitle, setEditedTitle] = useState("");
     const [editedPrice, setEditedPrice] = useState("");
@@ -26,7 +25,7 @@ function Admin(props) {
             }
         }
         handlePrintItems()
-    })
+    }, [])
 
     const handleAdd = () => {
         setAddVisibility('visible')
@@ -37,10 +36,23 @@ function Admin(props) {
         setIndex(e.target.id);
     }
 
-    const handleDelete = (e) => {
-        props.items.splice(e.target.id, 1)
-        setRenderer(renderer + 1);
+    const handleDelete = async (e) => {
+        const id = e.target.id;
+        try {
+            const res = await myApi.get('/items');
+            await myApi.delete(`/items/${res.data[id]._id}`)
+        } catch (err) {
+            console.log(err.message);
+        }
+        items.splice(e.target.id, 1);
+        props.renderer = props.renderer + 1;
+
     }
+
+    // const handleDelete = (e) => {
+    //     props.items.splice(e.target.id, 1)
+    //     // setRenderer(renderer + 1);
+    // }
 
     const handlePrintArr = () => {
         return items.map((item, index) => {
@@ -48,7 +60,7 @@ function Admin(props) {
             return (
                 <div key={index} id={index} className="Admin__RenderedItems">
                     <p className="Admin__Titles__Title">{item.title}</p>
-                    <p className="Admin__Titles__Title">{item.price}</p>
+                    <p className="Admin__Titles__Title">${item.price}</p>
                     <p className="Admin__Titles__Title">{item.description}</p>
                     <img className="Admin__Titles__Title" src={item.image}></img>
                     <div className="Admin__Titles__Title">
@@ -62,16 +74,19 @@ function Admin(props) {
 
     return (
         <div className="Admin">
-            <div className="renderer">{renderer}</div>
+            {/* <div className="renderer">{renderer}</div> */}
             <button onClick={() => handleAdd()} className="Admin__AddButton">Add</button>
             <button onClick={() => console.log(items)}>LOG</button>
             <ModalAdd
                 items={items}
+                setItems={setItems}
+                renderer={props.renderer}
                 visibility={addVisibility}
                 setVisibility={setAddVisibility}
             />
             <ModalEdit
                 items={items}
+                setItems={setItems}
                 editedTitle={editedTitle}
                 setEditedTitle={setEditedTitle}
                 editedPrice={editedPrice}

@@ -1,13 +1,27 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css"
+import myApi from "../../Api/Api";
 
 
 function Home(props) {
 
+    const [items, setItems] = useState([]);
     const [counter, setCounter] = useState(0)
     const [shoppingCartItems, setShoppingCartItems] = useState([]);
     const [shoppingCartTotal, setShoppingCartTotal] = useState(0);
     const [visibility, setVisibility] = useState("hidden");
+
+    useEffect(() => {
+        const handlePrintItems = async () => {
+            try {
+                const res = await myApi.get('/items');
+                setItems([...res.data]);
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        handlePrintItems()
+    }, [])
 
     const handleCount = () => {
         // console.log(counter)
@@ -42,13 +56,13 @@ function Home(props) {
         //         </div>
         //     )
         // })
-        return props.items.map((item, index) => {
+        return items.map((item, index) => {
             return (
                 <div key={index} id={index} className="Home__RenderedItems">
-                    <img className="RenderedItems__Item" src={props.items[index].image}></img>
-                    <p className="RenderedItems__Item">{props.items[index].title}</p>
-                    <p className="RenderedItems__Item">{props.items[index].price}</p>
-                    <p className="RenderedItems__Item">{props.items[index].description}</p>
+                    <img className="RenderedItems__Item" src={item.image}></img>
+                    <p className="RenderedItems__Item">{item.title}</p>
+                    <p className="RenderedItems__Item">${item.price}</p>
+                    <p className="RenderedItems__Item">{item.description}</p>
                     <button onClick={handleShoppingCart}>Buy</button>
                 </div>
             )
