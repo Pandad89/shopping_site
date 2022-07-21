@@ -3,10 +3,30 @@ import "./Admin.css"
 import myApi from "../../Api/Api";
 import ModalAdd from "./ModalAdd";
 import ModalEdit from "./ModalEdit";
+import Home from "../Home/Home";
 
 function Admin(props) {
-
+    
+    const [data, setData] = useState([])
     const [items, setItems] = useState([]);
+
+        // useEffect(() => {
+        //     const handlePrintItems = async () => {
+        //         try {
+        //             const res = await myApi.get('/items');
+        //             setData([...res.data]);
+        //         } catch (err) {
+        //             console.log(err)
+        //         }
+        //     }
+        //     handlePrintItems()
+        // }, [])
+
+        // useEffect(() => {
+        //     setItems([...data])
+        // },)
+
+    const [renderer, setRenderer] = useState(0)
     const [addVisibility, setAddVisibility] = useState('hidden');
     const [editVisibility, setEditVisibility] = useState('hidden');
     const [index, setIndex] = useState(0);
@@ -14,18 +34,6 @@ function Admin(props) {
     const [editedPrice, setEditedPrice] = useState("");
     const [editedDescription, setEditedDescription] = useState("");
     const [editedImage, setEditedImage] = useState("");
-
-    useEffect(() => {
-        const handlePrintItems = async () => {
-            try {
-                const res = await myApi.get('/items');
-                setItems([...res.data]);
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        handlePrintItems()
-    }, [])
 
     const handleAdd = () => {
         setAddVisibility('visible')
@@ -45,7 +53,7 @@ function Admin(props) {
             console.log(err.message);
         }
         items.splice(e.target.id, 1);
-        props.renderer = props.renderer + 1;
+        setRenderer(renderer + 1);
 
     }
 
@@ -55,14 +63,13 @@ function Admin(props) {
     // }
 
     const handlePrintArr = () => {
-        return items.map((item, index) => {
-            console.log(item)
+        return props.items.map((item, index) => {
             return (
                 <div key={index} id={index} className="Admin__RenderedItems">
-                    <p className="Admin__Titles__Title">{item.title}</p>
-                    <p className="Admin__Titles__Title">${item.price}</p>
-                    <p className="Admin__Titles__Title">{item.description}</p>
-                    <img className="Admin__Titles__Title" src={item.image}></img>
+                    <p className="Admin__Titles__Title">{props.items[index].title}</p>
+                    <p className="Admin__Titles__Title">${props.items[index].price}</p>
+                    <p className="Admin__Titles__Title">{props.items[index].description}</p>
+                    <img className="Admin__Titles__Title" src={props.items[index].image}></img>
                     <div className="Admin__Titles__Title">
                         <button id={index} onClick={handleEdit}>Edit</button>
                         <button id={index} onClick={handleDelete}>Delete</button>
@@ -76,11 +83,18 @@ function Admin(props) {
         <div className="Admin">
             {/* <div className="renderer">{renderer}</div> */}
             <button onClick={() => handleAdd()} className="Admin__AddButton">Add</button>
-            <button onClick={() => console.log(items)}>LOG</button>
+            {/* <button onClick={() => props.items.push({
+                title: "title",
+                price: "2",
+                description: "description",
+                image: "image"
+            })}>PUSH</button> */}
+            <button onClick={() => console.log(props.items)}>LOG</button>
             <ModalAdd
                 items={items}
                 setItems={setItems}
-                renderer={props.renderer}
+                renderer={renderer}
+                setRenderer={setRenderer}
                 visibility={addVisibility}
                 setVisibility={setAddVisibility}
             />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css"
-import myApi from "../../Api/Api";
+import Admin from "../Admin/Admin";
 
 
 function Home(props) {
@@ -10,19 +10,19 @@ function Home(props) {
     const [shoppingCartItems, setShoppingCartItems] = useState([]);
     const [shoppingCartTotal, setShoppingCartTotal] = useState(0);
     const [visibility, setVisibility] = useState("hidden");
-
-    useEffect(() => {
-        const handlePrintItems = async () => {
-            try {
-                const res = await myApi.get('/items');
-                setItems([...res.data]);
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        handlePrintItems()
-    }, [])
-
+        
+    // useEffect(() => {
+    //     const handlePrintItems = async () => {
+    //         try {
+    //             const res = await myApi.get('/items');
+    //             setItems([...res.data]);
+    //         } catch (err) {
+    //             console.log(err)
+    //         }
+    //     }
+    //     handlePrintItems()
+    // }, [])
+    
     const handleCount = () => {
         // console.log(counter)
         setCounter(counter + 1)
@@ -56,13 +56,13 @@ function Home(props) {
         //         </div>
         //     )
         // })
-        return items.map((item, index) => {
+        return props.items.map((item, index) => {
             return (
                 <div key={index} id={index} className="Home__RenderedItems">
-                    <img className="RenderedItems__Item" src={item.image}></img>
-                    <p className="RenderedItems__Item">{item.title}</p>
-                    <p className="RenderedItems__Item">${item.price}</p>
-                    <p className="RenderedItems__Item">{item.description}</p>
+                    <img className="RenderedItems__Item" src={props.items[index].image}></img>
+                    <p className="RenderedItems__Item">{props.items[index].title}</p>
+                    <p className="RenderedItems__Item">${props.items[index].price}</p>
+                    <p className="RenderedItems__Item">{props.items[index].description}</p>
                     <button onClick={handleShoppingCart}>Buy</button>
                 </div>
             )
@@ -73,14 +73,13 @@ function Home(props) {
         return props.items.map((item, index) => {
             return (
                 <div className="Home__ShoppingCart__Items">
-                    <p className="ShoppingCartItems__Item">{}</p>
-                    <p className="ShoppingCartItems__Item">{}</p>
-                    <p className="ShoppingCartItems__Item">{}</p>
+                    <p className="ShoppingCartItems__Item">{ }</p>
+                    <p className="ShoppingCartItems__Item">{ }</p>
+                    <p className="ShoppingCartItems__Item">{ }</p>
                 </div>
             )
         })
     }
-
 
     return (
         <div className="Home">

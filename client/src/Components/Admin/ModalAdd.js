@@ -10,8 +10,8 @@ function ModalAdd(props) {
     const [description, setDescription] = useState("");
     const [image, setImage] = useState("");
 
-    const handleAdd = () => {
-        const handleMongo = async (e) => {
+    const handleAdd = async (e) => {
+        // const handleMongo = async (e) => {
             
                     e.preventDefault();
             
@@ -30,14 +30,14 @@ function ModalAdd(props) {
                             console.log(err);
                         }
                     }
-                }
-                handleMongo();
-                props.items.push({
-                    title: title,
-                    price: price,
-                    description: description,
-                    image: image,
-                })
+                // }
+                // handleMongo();
+                // props.items.push({
+                //     title: title,
+                //     price: price,
+                //     description: description,
+                //     image: image,
+                // })
                 setTitle("");
                 setPrice("");
                 setDescription("");
