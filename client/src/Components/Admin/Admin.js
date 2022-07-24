@@ -6,25 +6,6 @@ import ModalEdit from "./ModalEdit";
 import Home from "../Home/Home";
 
 function Admin(props) {
-    
-    const [data, setData] = useState([])
-    const [items, setItems] = useState([]);
-
-        // useEffect(() => {
-        //     const handlePrintItems = async () => {
-        //         try {
-        //             const res = await myApi.get('/items');
-        //             setData([...res.data]);
-        //         } catch (err) {
-        //             console.log(err)
-        //         }
-        //     }
-        //     handlePrintItems()
-        // }, [])
-
-        // useEffect(() => {
-        //     setItems([...data])
-        // },)
 
     const [renderer, setRenderer] = useState(0)
     const [addVisibility, setAddVisibility] = useState('hidden');
@@ -46,21 +27,16 @@ function Admin(props) {
 
     const handleDelete = async (e) => {
         const id = e.target.id;
+        setRenderer(renderer + 1);
+        props.items.splice(e.target.id, 1);
         try {
             const res = await myApi.get('/items');
             await myApi.delete(`/items/${res.data[id]._id}`)
         } catch (err) {
             console.log(err.message);
         }
-        items.splice(e.target.id, 1);
-        setRenderer(renderer + 1);
 
     }
-
-    // const handleDelete = (e) => {
-    //     props.items.splice(e.target.id, 1)
-    //     // setRenderer(renderer + 1);
-    // }
 
     const handlePrintArr = () => {
         return props.items.map((item, index) => {
@@ -91,16 +67,14 @@ function Admin(props) {
             })}>PUSH</button> */}
             <button onClick={() => console.log(props.items)}>LOG</button>
             <ModalAdd
-                items={items}
-                setItems={setItems}
+                items={props.items}
                 renderer={renderer}
                 setRenderer={setRenderer}
                 visibility={addVisibility}
                 setVisibility={setAddVisibility}
             />
             <ModalEdit
-                items={items}
-                setItems={setItems}
+                items={props.items}
                 editedTitle={editedTitle}
                 setEditedTitle={setEditedTitle}
                 editedPrice={editedPrice}
