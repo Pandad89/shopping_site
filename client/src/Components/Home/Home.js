@@ -7,22 +7,11 @@ function Home(props) {
 
     const [items, setItems] = useState([]);
     const [counter, setCounter] = useState(0)
-    const [shoppingCartItems, setShoppingCartItems] = useState([]);
+    let shoppingCartItems = [];
+    const [shoppingCartItemCount, setShoppingCartItemCount] = useState([]);
     const [shoppingCartTotal, setShoppingCartTotal] = useState(0);
     const [visibility, setVisibility] = useState("hidden");
-        
-    // useEffect(() => {
-    //     const handlePrintItems = async () => {
-    //         try {
-    //             const res = await myApi.get('/items');
-    //             setItems([...res.data]);
-    //         } catch (err) {
-    //             console.log(err)
-    //         }
-    //     }
-    //     handlePrintItems()
-    // }, [])
-    
+
     const handleCount = () => {
         // console.log(counter)
         setCounter(counter + 1)
@@ -41,21 +30,26 @@ function Home(props) {
     }
 
     const handleShoppingCart = (e) => {
-        console.log(e.target.id)
+        const id = e.target.id;
+
+        if (shoppingCartItems == false) {
+            shoppingCartItems.push({
+                title: props.items[id].title,
+                amount: 1,
+                price: props.items[id].price,
+            })
+        } else {
+            shoppingCartItems.push({
+                title: props.items[id].title,
+                amount: 1,
+                price: props.items[id].price,
+            })
+        }
+
+        console.log(shoppingCartItems)
     }
 
     const handlePrintArr = () => {
-        // return tempArr.map((item, index) => {
-        //     return (
-        //         <div key={index} id={index} className="Home__RenderedItems">
-        //             <img className="RenderedItems__Item" src={tempArr[index].image}></img>
-        //             <p className="RenderedItems__Item">{tempArr[index].title}</p>
-        //             <p className="RenderedItems__Item">{tempArr[index].price}</p>
-        //             <p className="RenderedItems__Item">{tempArr[index].description}</p>
-        //             <button onClick={handleShoppingCart}>Buy</button>
-        //         </div>
-        //     )
-        // })
         return props.items.map((item, index) => {
             return (
                 <div key={index} id={index} className="Home__RenderedItems">
@@ -63,7 +57,7 @@ function Home(props) {
                     <p className="RenderedItems__Item">{props.items[index].title}</p>
                     <p className="RenderedItems__Item">${props.items[index].price}</p>
                     <p className="RenderedItems__Item">{props.items[index].description}</p>
-                    <button onClick={handleShoppingCart}>Buy</button>
+                    <button key={index} id={index} onClick={handleShoppingCart}>Buy</button>
                 </div>
             )
         })
@@ -73,8 +67,8 @@ function Home(props) {
         return props.items.map((item, index) => {
             return (
                 <div className="Home__ShoppingCart__Items">
-                    <p className="ShoppingCartItems__Item">{ }</p>
-                    <p className="ShoppingCartItems__Item">{ }</p>
+                    <p className="ShoppingCartItems__Item">{shoppingCartItems}</p>
+                    <p className="ShoppingCartItems__Item">{shoppingCartItems}</p>
                     <p className="ShoppingCartItems__Item">{ }</p>
                 </div>
             )

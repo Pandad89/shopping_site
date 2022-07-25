@@ -20,4 +20,3 @@ const itemsSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Item', itemsSchema);
-
