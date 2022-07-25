@@ -29,6 +29,29 @@ router.post('/', async (req, res) => {
     }
 });
 
+//Update Item
+router.patch('/:id', getItem, async (req, res) => {
+    if (req.body.title != null) {
+        res.item.title = req.body.title
+    };
+    if (req.body.price != null) {
+        res.item.price = req.body.price
+    };
+    if (req.body.description != null) {
+        res.item.description = req.body.description
+    };
+    if (req.body.image != null) {
+        res.item.image = req.body.image
+    };
+    
+    try {
+        const updatedReview = await res.item.save();
+        res.json(updatedReview);
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
+});
+
 //Delete Item
 router.delete('/:id', getItem, async (req, res) => {
     try {

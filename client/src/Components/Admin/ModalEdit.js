@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import myApi from '../../Api/Api';
 
 function ModalEdit(props) {
 
@@ -7,17 +8,108 @@ function ModalEdit(props) {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
 
-  const handleEdit = () => {
-    props.items[props.index].title = title;
-    props.items[props.index].price = "$" + price;
-    props.items[props.index].description = description;
-    props.items[props.index].image = image;
+  const handleEdit = async (e) => {
+
+    if (title !== "") {
+      props.items[props.index].title = title;
+    }
+    if (price !== "") {
+      props.items[props.index].price = price;
+    }
+    if (description !== "") {
+      props.items[props.index].description = description;
+    }
+    if (image !== "") {
+      props.items[props.index].image = image;
+    }
+
     setTitle("");
     setPrice("");
     setDescription("");
     setImage("");
-    props.setVisibility('hidden')
+    props.setVisibility('hidden');
+
+    e.preventDefault();
+
+    if(title !== ""){
+      const res = await myApi.get('/items')
+      
+      try {
+        const editedItem = {
+          title: title,
+          price: res.data[props.index].price,
+          description: res.data[props.index].description,
+          image: res.data[props.index].image,
+        };
+  
+        await myApi.patch(`/items/${res.data[props.index]._id}`, editedItem)
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    if(price !== ""){
+      const res = await myApi.get('/items')
+      
+      try {
+        const editedItem = {
+          title: res.data[props.index].title,
+          price: price,
+          description: res.data[props.index].description,
+          image: res.data[props.index].image,
+        };
+  
+        await myApi.patch(`/items/${res.data[props.index]._id}`, editedItem)
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    if(description !== ""){
+      const res = await myApi.get('/items')
+      
+      try {
+        const editedItem = {
+          title: res.data[props.index].title,
+          price: res.data[props.index].price,
+          description: description,
+          image: res.data[props.index].image,
+        };
+  
+        await myApi.patch(`/items/${res.data[props.index]._id}`, editedItem)
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    if(image !== ""){
+      const res = await myApi.get('/items')
+      
+      try {
+        const editedItem = {
+          title: res.data[props.index].title,
+          price: res.data[props.index].price,
+          description: res.data[props.index].description,
+          image: image,
+        };
+  
+        await myApi.patch(`/items/${res.data[props.index]._id}`, editedItem)
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+
+    props.renderer = props.renderer + 1;
   }
+
+  // const handleLog = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const res = await myApi.get('/items')
+  //     console.log(res.data[props.index]._id)
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
 
   const handleChangeTitle = (e) => {
     setTitle(e.target.value)
@@ -46,6 +138,7 @@ function ModalEdit(props) {
         <label htmlFor="image">Image(url)</label>
         <input type="url" id="image" value={image} onChange={handleChangeimage}></input>
         <button className='ModalContainer__Submit' id={props.id} onClick={handleEdit}>Submit</button>
+        {/* <button className='ModalContainer__Submit' id={props.id} onClick={handleLog}>LOG</button> */}
       </div>
     </div>
   )
