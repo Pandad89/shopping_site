@@ -7,8 +7,9 @@ function Home(props) {
 
     const [items, setItems] = useState([]);
     const [counter, setCounter] = useState(0)
-    let shoppingCartItems = [];
-    const [shoppingCartItemCount, setShoppingCartItemCount] = useState([]);
+    const [renderer, setRenderer] = useState(0)
+    const [shoppingCartItems, setShoppingCartItems] = useState([]);
+    const [shoppingCartItemCount, setShoppingCartItemCount] = useState(0);
     const [shoppingCartTotal, setShoppingCartTotal] = useState(0);
     const [visibility, setVisibility] = useState("hidden");
 
@@ -32,21 +33,24 @@ function Home(props) {
     const handleShoppingCart = (e) => {
         const id = e.target.id;
 
-        if (shoppingCartItems == false) {
-            shoppingCartItems.push({
-                title: props.items[id].title,
-                amount: 1,
-                price: props.items[id].price,
-            })
-        } else {
+        if(!shoppingCartItems[id]) {
             shoppingCartItems.push({
                 title: props.items[id].title,
                 amount: 1,
                 price: props.items[id].price,
             })
         }
+        if(shoppingCartItems) {
+            shoppingCartItems[id].amount = shoppingCartItems[id].amount + 1            
+        }
+
+
+            setShoppingCartItemCount(shoppingCartItemCount + 1)
+
+
 
         console.log(shoppingCartItems)
+        console.log(shoppingCartItems.indexOf('Cherries'))
     }
 
     const handlePrintArr = () => {
@@ -64,12 +68,13 @@ function Home(props) {
     }
 
     const handleRenderShopingCart = () => {
-        return props.items.map((item, index) => {
+        return shoppingCartItems.map((item, index) => {
             return (
                 <div className="Home__ShoppingCart__Items">
-                    <p className="ShoppingCartItems__Item">{shoppingCartItems}</p>
-                    <p className="ShoppingCartItems__Item">{shoppingCartItems}</p>
-                    <p className="ShoppingCartItems__Item">{ }</p>
+                    <div className="renderer">{renderer}</div>
+                    <p className="ShoppingCartItems__Item">{shoppingCartItems[index].amount}</p>
+                    <p className="ShoppingCartItems__Item">{shoppingCartItems[index].title}</p>
+                    <p className="ShoppingCartItems__Item">${shoppingCartItems[index].price}</p>
                 </div>
             )
         })
@@ -77,12 +82,17 @@ function Home(props) {
 
     return (
         <div className="Home">
-            <button className="Home__ShoppingCart__Button" onClick={handleVisibility}><h3>Shopping Cart <span>&nbsp;{counter}&nbsp;</span></h3></button>
+            <button className="Home__ShoppingCart__Button" onClick={handleVisibility}><h3>Shopping Cart <span>&nbsp;{shoppingCartItemCount}&nbsp;</span></h3></button>
             <div className="Home__List">
                 {handlePrintArr()}
             </div>
             <div className="Home__ShoppingCart" style={{ visibility: visibility }}>
                 <p className="Home__ShoppingCart__AbortButton" onClick={handleVisibility}>&nbsp;X&nbsp;</p>
+                <div className="Home__ShoppingCart__Items">
+                    <p>Item</p>
+                    <p>Amount</p>
+                    <p>Price</p>
+                </div>
                 {handleRenderShopingCart()}
                 <p>Total: ${shoppingCartTotal}</p>
                 <button onClick={handlePay}>Pay</button>
