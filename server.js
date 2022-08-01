@@ -5,6 +5,7 @@ const express = require('express');
 const path = require('path');
 
 const itemRouter = require('./routes/items');
+const purchaseRouter = require('./routes/purchases');
 
 const cors = require('cors');
 const app = express();
@@ -22,6 +23,7 @@ const publicDirectoryPath = path.join(__dirname, "client/build");
 app.use(express.static(publicDirectoryPath));
 
 app.use('/api/items', itemRouter);
+app.use('/api/purchases', purchaseRouter);
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname + "/client/build/index.html"));

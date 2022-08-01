@@ -57,15 +57,7 @@ function Admin(props) {
 
     return (
         <div className="Admin">
-            {/* <div className="renderer">{renderer}</div> */}
             <button onClick={() => handleAdd()} className="Admin__AddButton">Add</button>
-            {/* <button onClick={() => props.items.push({
-                title: "title",
-                price: "2",
-                description: "description",
-                image: "image"
-            })}>PUSH</button> */}
-            <button onClick={() => console.log(props.items)}>LOG</button>
             <ModalAdd
                 items={props.items}
                 renderer={renderer}

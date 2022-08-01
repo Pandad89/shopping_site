@@ -1,25 +1,40 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css"
-import Admin from "../Admin/Admin";
+import myApi from "../../Api/Api";
+// import Admin from "../Admin/Admin";
 
 
 function Home(props) {
 
-    const [items, setItems] = useState([]);
-    const [counter, setCounter] = useState(0)
     const [renderer, setRenderer] = useState(0)
     const [cartItems, setCartItems] = useState([]);
-    const [cartItemCount, setCartItemCount] = useState(0);
+    const [itemCount, setItemCount] = useState(0);
     const [cartTotal, setCartTotal] = useState(0);
     const [visibility, setVisibility] = useState("hidden");
 
-    const handleCount = () => {
-        // console.log(counter)
-        setCounter(counter + 1)
-    }
+    const handlePay = async () => {
+        cartItems.push({
+            total: cartTotal
+        })
+        try {
+            const newPurchase = {
+                purchase: cartItems
+            };
 
-    const handlePay = () => {
-        console.log("pay")
+            await myApi.post('/purchases', newPurchase)
+            
+        } catch (err) {
+            console.log(err);
+        };
+
+        for(let i = cartItems.length; i > 0; i--){
+            cartItems.pop()
+        };
+
+        setCartTotal(0);
+        setItemCount(0);
+        setRenderer(renderer + 1);
+        setVisibility("hidden");
     }
 
     const handleVisibility = () => {
@@ -27,8 +42,8 @@ function Home(props) {
             setVisibility("visible");
         } else if (visibility === "visible") {
             setVisibility("hidden");
-        }
-    }
+        };
+    };
 
 
     const handleShoppingCart = (e) => {
@@ -57,7 +72,7 @@ function Home(props) {
             }
 
             setRenderer(renderer + 1);
-            setCartItemCount(cartItemCount + 1);
+            setItemCount(itemCount + 1);
         } else {
             cartItems.push({
                 title: props.items[id].title,
@@ -66,7 +81,7 @@ function Home(props) {
                 price: props.items[id].price,
                 id: id,
             })
-            setCartItemCount(cartItemCount + 1)
+            setItemCount(itemCount + 1)
             setRenderer(renderer + 1);
         }
         const add = (a, b) => {
@@ -94,8 +109,8 @@ function Home(props) {
             return (
                 <div className="Home__ShoppingCart__Items">
                     <div className="renderer">{renderer}</div>
-                    <p className="cartItems__Item">{cartItems[index].title}</p>
                     <p className="cartItems__Item">{cartItems[index].amount}</p>
+                    <p className="cartItems__Item">{cartItems[index].title}</p>
                     <p className="cartItems__Item">${cartItems[index].price}</p>
                 </div>
             )
@@ -104,7 +119,7 @@ function Home(props) {
 
     return (
         <div className="Home">
-            <button className="Home__ShoppingCart__Button" onClick={handleVisibility}><h3>Shopping Cart <span>&nbsp;{cartItemCount}&nbsp;</span></h3></button>
+            <button className="Home__ShoppingCart__Button" onClick={handleVisibility}><h3>Shopping Cart <span>&nbsp;{itemCount}&nbsp;</span></h3></button>
             <div className="Home__List">
                 {handlePrintArr()}
             </div>

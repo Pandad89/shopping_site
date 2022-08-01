@@ -50,12 +50,12 @@
     width: 16rem;
 }
 
-.ShoppingCartItems__Item {
+.cartItems__Item {
     margin: .1rem;
 
 }
 
-.ShoppingCartItems__Item:nth-child(2) {
+.cartItems__Item:nth-child(2) {
     position: absolute;
     left: 9rem;
 }

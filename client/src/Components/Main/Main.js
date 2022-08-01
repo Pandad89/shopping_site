@@ -12,7 +12,7 @@ function Main() {
     let renderer = 0;
 
     useEffect(() => {
-        const handlePrintItems = async () => {
+        const handleSetItems = async () => {
             try {
                 const res = await myApi.get('/items');
                 setItems([...res.data]);
@@ -20,7 +20,7 @@ function Main() {
                 console.log(err)
             }
         }
-        handlePrintItems()
+        handleSetItems()
     }, [])
 
 
