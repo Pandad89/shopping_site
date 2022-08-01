@@ -5,6 +5,10 @@ const purchasesSchema = new mongoose.Schema({
         type: Array,
         required: true,
     },
+    timePosted: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 module.exports = mongoose.model('Purchase', purchasesSchema);

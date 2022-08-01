@@ -1,0 +1,19 @@
+.Stats__Cards{
+    display: flex;
+    justify-content: space-evenly;
+}
+.Stats__CardOne{
+    border: 2px solid red;
+    height: 30rem;
+    width: 25rem;
+}
+.Stats__CardTwo{
+    border: 2px solid blue;
+    height: 30rem;
+    width: 25rem;
+}
+.Stats__CardThree{
+    border: 2px solid green;
+    height: 30rem;
+    width: 25rem;
+}

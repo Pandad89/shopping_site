@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 
 function Main() {
     const [items, setItems] = useState([]);
+    const [purchases, setPurchases] = useState([]);
     let renderer = 0;
 
     useEffect(() => {
@@ -23,6 +24,17 @@ function Main() {
         handleSetItems()
     }, [])
 
+    useEffect(() => {
+      const handleSetPurchases = async () => {
+          try {
+              const res = await myApi.get('/purchases');
+              setPurchases([...res.data]);
+          } catch (err) {
+              console.log(err)
+          }
+      }
+      handleSetPurchases()
+  }, [])
 
   const handleRender = () => {
     renderer = renderer + 1;
@@ -46,7 +58,7 @@ function Main() {
         <Routes>
           <Route path="/" exact element={<Home items={items} setItems={setItems} renderer={renderer} />} />
           <Route path="/admin" exact element={<Admin items={items} setItems={setItems} renderer={renderer}/>} />
-          <Route path="/stats" exact element={<Stats items={items} setItems={setItems} renderer={renderer} />} />
+          <Route path="/stats" exact element={<Stats purchases={purchases} setPurchases={setPurchases} renderer={renderer} />} />
         </Routes>
       </Router>
     </div>
