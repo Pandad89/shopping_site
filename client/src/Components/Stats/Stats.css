@@ -3,17 +3,23 @@
     justify-content: space-evenly;
 }
 .Stats__CardOne{
-    border: 2px solid red;
+    border: 2px solid black;
     height: 30rem;
     width: 25rem;
 }
 .Stats__CardTwo{
-    border: 2px solid blue;
+    border: 2px solid black;
     height: 30rem;
     width: 25rem;
 }
 .Stats__CardThree{
-    border: 2px solid green;
+    border: 2px solid black;
     height: 30rem;
     width: 25rem;
+}
+
+.Stats__RenderedItems{
+    border: 2px solid purple;
+    display: flex;
+    justify-content: space-evenly;
 }

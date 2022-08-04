@@ -12,10 +12,21 @@ function Home(props) {
     const [cartTotal, setCartTotal] = useState(0);
     const [visibility, setVisibility] = useState("hidden");
 
-    const handlePay = async () => {
+    const handlePay = async (e) => {
         cartItems.push({
             total: cartTotal
         })
+
+        props.purchases.push({
+            purchase: cartItems
+        })
+
+        setCartTotal(0);
+        setItemCount(0);
+        setRenderer(renderer + 1);
+        setVisibility("hidden");
+
+        e.preventDefault();
         try {
             const newPurchase = {
                 purchase: cartItems
@@ -31,10 +42,6 @@ function Home(props) {
             cartItems.pop()
         };
 
-        setCartTotal(0);
-        setItemCount(0);
-        setRenderer(renderer + 1);
-        setVisibility("hidden");
     }
 
     const handleVisibility = () => {
@@ -75,7 +82,6 @@ function Home(props) {
             setItemCount(itemCount + 1);
         } else {
             cartItems.push({
-                title: props.items[id].title,
                 title: props.items[id].title,
                 amount: 1,
                 price: props.items[id].price,
