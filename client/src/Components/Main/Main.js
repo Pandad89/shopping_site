@@ -12,6 +12,15 @@ function Main() {
   const [purchases, setPurchases] = useState([]);
   let unifiedPurchaseData = [];
   let filteredData = [];
+  let totals = [];
+
+  const date = (i) => {
+    const year = purchases[i].timePosted.slice(0, 4);
+    const month = purchases[i].timePosted.slice(5, 7);
+    const day = purchases[i].timePosted.slice(8, 10);
+
+    return `${day}.${month}.${year}`;
+  }
 
   let renderer = 0;
 
@@ -42,27 +51,35 @@ function Main() {
   // ============================================================================
 
   useEffect(() => {
-    const handleUnifyPurchases = () => {
+    const handleFilterPurchases = () => {
+      let dates = [];
       for (let i = 0; i < purchases.length; i++) {
         for (let j = 0; j < purchases[i].purchase.length; j++) {
           unifiedPurchaseData.push(purchases[i].purchase[j]);
+          dates.push({
+            date: date(i)
+          })
+        }
+      }
+      for (let k = 0; k < unifiedPurchaseData.length; k++) {
+        if (unifiedPurchaseData[k].title !== undefined) {
+          filteredData.push({
+            title: unifiedPurchaseData[k].title,
+            amount: unifiedPurchaseData[k].amount,
+          })
+        }
+      }
+      for (let l = 0; l < unifiedPurchaseData.length; l++) {
+        if (unifiedPurchaseData[l].total !== undefined) {
+          totals.push({
+            total: unifiedPurchaseData[l].total,
+            purchaseDate: dates[l].date
+          })
         }
       }
     }
-    handleUnifyPurchases();
+    handleFilterPurchases();
   })
-
-  useEffect(() => {
-    const handleFilterData = () => {
-      for (let i = 0; i < unifiedPurchaseData.length; i++) {
-        filteredData.push({
-          title: unifiedPurchaseData[i].title,
-          amount: unifiedPurchaseData[i].amount,
-        })
-      }
-    }
-    handleFilterData();
-  }, [])
 
 
 
@@ -98,7 +115,7 @@ function Main() {
         <Routes>
           <Route path="/" exact element={<Home items={items} setItems={setItems} renderer={renderer} purchases={purchases} />} />
           <Route path="/admin" exact element={<Admin items={items} setItems={setItems} renderer={renderer} />} />
-          <Route path="/stats" exact element={<Stats items={items} purchases={purchases} setPurchases={setPurchases} renderer={renderer} filteredData={filteredData} />} />
+          <Route path="/stats" exact element={<Stats items={items} renderer={renderer} filteredData={filteredData} totals={totals} />} />
         </Routes>
       </Router>
     </div>

@@ -4,20 +4,48 @@ import "./Stats.css"
 
 function Stats(props) {
 
-    const purchases = props.purchases;
+    const filteredData = props.filteredData;
+    const totals = props.totals;
+    let refinedPurchases = [];
+    let refinedTotals = [];
 
-    const date = () => {
-        const year = purchases[0].timePosted.slice(0, 4);
-        const month = purchases[0].timePosted.slice(5, 7);
-        const day = purchases[0].timePosted.slice(8, 10);
 
-        return `${day}.${month}.${year}`;
-    }
 
     const handleTopFive = () => {
+        // if (cartItems.length !== 0) {
+        //     let isItemFound = false;
+        //     for (let i = 0; i < cartItems.length; i++) {
+        //         if (cartItems[i].id === id) {
+        //             cartItems[i].amount++;
+        //             const multi = (a, b) => {
+        //                 return a * b;
+        //             }
+        //             cartItems[i].price = multi(props.items[id].price, cartItems[i].amount)
+        //             isItemFound = true;
+        //             break;
+        //         }
+        //     }
+        //     if (!isItemFound) {
+        //         cartItems.push({
+        //             title: props.items[id].title,
+        //             amount: 1,
+        //             price: props.items[id].price,
+        //             id: id,
+        //         });
+        //     }
 
-
-
+        //     setRenderer(renderer + 1);
+        //     setItemCount(itemCount + 1);
+        // } else {
+        //     cartItems.push({
+        //         title: props.items[id].title,
+        //         amount: 1,
+        //         price: props.items[id].price,
+        //         id: id,
+        //     })
+        //     setItemCount(itemCount + 1)
+        //     setRenderer(renderer + 1);
+        // }
     }
 
     const handleTopFiveUnique = () => {
@@ -28,32 +56,18 @@ function Stats(props) {
 
     }
 
-
-
-
-
     const handleLog = () => {
-        // console.log(purchases);
-        // console.log(date());
-        // console.log(props.unifiedPurchaseData);
-        console.log(props.filteredData);
+        console.log('filteredData');
+        console.log(filteredData);
+        console.log('totals');
+        console.log(totals);
+        console.log('refinedPurchases');
+        console.log(refinedPurchases);
+        console.log('refinedTotals');
+        console.log(refinedTotals);
+
 
     }
-    // data.push(...purchases[i].purchase)
-
-    //  const handlePrintArr = () => {
-    //     return rawData.map((item, index) => {
-    //         return (
-    //             <div key={index} id={index} className="Stats__RenderedItems">
-    //                 <h3 className="RenderedItems__Item">{item[index].title}</h3>
-    //                 <h3 className="RenderedItems__Item">-</h3>
-    //                 <h3 className="RenderedItems__Item">{item[index].amount}</h3>
-    //             </div>
-    //         )
-    //     })
-    // }
-
-
 
     return (
         <div className="Stats">
