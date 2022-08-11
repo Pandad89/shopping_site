@@ -9,8 +9,6 @@ function Stats(props) {
     let refinedPurchases = [];
     let refinedTotals = [];
 
-
-
     const handleTopFive = () => {
         // if (cartItems.length !== 0) {
         //     let isItemFound = false;
