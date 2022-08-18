@@ -66,6 +66,7 @@ function Main() {
           filteredData.push({
             title: unifiedPurchaseData[k].title,
             amount: unifiedPurchaseData[k].amount,
+            id: unifiedPurchaseData[k].id,
           })
         }
       }
@@ -115,7 +116,7 @@ function Main() {
         <Routes>
           <Route path="/" exact element={<Home items={items} setItems={setItems} renderer={renderer} purchases={purchases} />} />
           <Route path="/admin" exact element={<Admin items={items} setItems={setItems} renderer={renderer} />} />
-          <Route path="/stats" exact element={<Stats items={items} renderer={renderer} filteredData={filteredData} totals={totals} />} />
+          <Route path="/stats" exact element={<Stats items={items} purchases={purchases} renderer={renderer} filteredData={filteredData} totals={totals} unifiedPurchaseData={unifiedPurchaseData} />} />
         </Routes>
       </Router>
     </div>

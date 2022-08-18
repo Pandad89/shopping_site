@@ -9,52 +9,38 @@ function Stats(props) {
     let refinedPurchases = [];
     let refinedTotals = [];
 
+    const [topSold, setTopSold] = useState([]);
+    const [topUnique, setTopUnique] = useState([]);
+    const [dailySales, setDailySales] = useState([]);
+
     const handleTopFive = () => {
-        // if (cartItems.length !== 0) {
-        //     let isItemFound = false;
-        //     for (let i = 0; i < cartItems.length; i++) {
-        //         if (cartItems[i].id === id) {
-        //             cartItems[i].amount++;
-        //             const multi = (a, b) => {
-        //                 return a * b;
-        //             }
-        //             cartItems[i].price = multi(props.items[id].price, cartItems[i].amount)
-        //             isItemFound = true;
-        //             break;
-        //         }
-        //     }
-        //     if (!isItemFound) {
-        //         cartItems.push({
-        //             title: props.items[id].title,
-        //             amount: 1,
-        //             price: props.items[id].price,
-        //             id: id,
-        //         });
-        //     }
+        for (let i = 0; i < filteredData.length; i++) {
+            if (refinedPurchases.length !== 0) {
+            let isItemFound = false;
 
-        //     setRenderer(renderer + 1);
-        //     setItemCount(itemCount + 1);
-        // } else {
-        //     cartItems.push({
-        //         title: props.items[id].title,
-        //         amount: 1,
-        //         price: props.items[id].price,
-        //         id: id,
-        //     })
-        //     setItemCount(itemCount + 1)
-        //     setRenderer(renderer + 1);
-        // }
+            } else {
+                refinedPurchases.push({
+                    title: filteredData[i].title,
+                    amount: filteredData[i].amount,
+                    id: filteredData[i].id,
+                })
+            }
+        }
     }
 
-    const handleTopFiveUnique = () => {
+    const handleTopUnique = () => {
 
     }
 
-    const dailySales = () => {
+    const handleDailySales = () => {
 
     }
 
     const handleLog = () => {
+        console.log('unifiedPurchaseData');
+        console.log(props.unifiedPurchaseData);
+        console.log('purchases');
+        console.log(props.purchases);
         console.log('filteredData');
         console.log(filteredData);
         console.log('totals');
