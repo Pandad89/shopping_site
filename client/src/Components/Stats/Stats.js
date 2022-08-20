@@ -16,8 +16,13 @@ function Stats(props) {
     const handleTopFive = () => {
         for (let i = 0; i < filteredData.length; i++) {
             if (refinedPurchases.length !== 0) {
-            let isItemFound = false;
-
+                let isItemFound = false;
+                // for (let j = 0; j < filteredData.length; j++) {
+                //  if(filteredData[j].id === refinedPurchases[j].id){
+                //     refinedPurchases[j].amount =+ filteredData[j].amount
+                //     isItemFound = true
+                //  }   
+                // }
             } else {
                 refinedPurchases.push({
                     title: filteredData[i].title,
